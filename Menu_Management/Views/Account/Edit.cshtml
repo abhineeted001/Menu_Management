@@ -1,0 +1,64 @@
+﻿@model Menu_Management.Models.menu
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2 style="color:orange">Edit Menu</h2>
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Menu Management", "Read", "Account", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <!--<li>@Html.ActionLink("Add New Item", "Create", "Account")</li>-->
+                <li style="text-align:right">@Html.ActionLink("Logout", "Logout", "Account")</li>
+                <!--<li>@Html.ActionLink("Contact", "Contact", "Account")</li>-->
+            </ul>
+        </div>
+    </div>
+</div>
+
+@using (Html.BeginForm("Edit", "Account", FormMethod.Post))
+{
+    <div class="form-horizontal">
+        <h4></h4>
+        <hr />
+        <div class="container" style="color:white; font-weight:bold; font-size:large">
+            <div class="form-group">
+                <label>Dish_Name</label><br />
+                @Html.TextBoxFor(a => a.DISH_NAME, new { @class = "form-control" })
+            </div>
+            <br />
+            <div class="form-group">
+                <label>Price</label><br />
+                @Html.TextBoxFor(a => a.PRICE, new { @class = "form-control" })
+            </div>
+            <br />
+            <div class="form-group">
+                <label>CategoryID</label><br />
+                @Html.DropDownListFor(s => s.CATEGORY_ID, new SelectList(ViewBag.categoryid, "Value", "Text"), "---Select Type---", new { @class = "dropdown", style = "margin-bottom : 7px;height: 30px;width: 280px; color:black; font-weight:bold;" })
+            </div><br />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.HiddenFor(model => model.DISH_ID)
+        </div>
+
+        <div class="form-group" style="font-weight:bold; color:brown">
+            <div class="col-md-10">
+                <button type="submit" class="btn btn-default" style="background-color:green; color:white; margin-right:122px">Save</button>
+                <button style="height:35px">@Html.ActionLink("Back to List", "Read")</button>
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+
+</div>

@@ -1,0 +1,53 @@
+﻿@model Menu_Management.Models.menu
+
+@{
+    ViewBag.Title = "Add New Item";
+}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Menu Management", "Read", "Account", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <!--<li>@Html.ActionLink("Add New Item", "Create", "Account")</li>-->
+                <li style="text-align:right">@Html.ActionLink("Logout", "Logout", "Account")</li>
+                <!--<li>@Html.ActionLink("Contact", "Contact", "Account")</li>-->
+            </ul>
+        </div>
+    </div>
+</div>
+<h2 style="color:orange">Add New Dish</h2>
+
+@using (Html.BeginForm("Create", "Account", FormMethod.Post))
+{
+    <div class="ktc-form-builder-tab-content-container" style="color:white; font-weight:bold; font-size:large">
+        <div class="form-group">
+            <label>Dish_Name</label><br />
+            @Html.TextBoxFor(a => a.DISH_NAME, new { @class = "form-control" })
+        </div>
+        <br />
+        <div class="form-group">
+            <label>Price</label><br />
+            @Html.TextBoxFor(a => a.PRICE, new { @class = "form-control" })
+        </div>
+        <br />
+        <div class="form-group">
+            <label>CategoryID</label><br />
+            @Html.DropDownListFor(s => s.CATEGORY_ID, new SelectList(ViewBag.mealTypes, "Value", "Text"), "---Select Type---", new { @class = "dropdown", style = "margin-bottom : 7px;height: 30px;width: 280px; color:black" })
+        </div><br />
+        <div></div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary" style="margin-right:13px">Submit</button>
+            <button type="reset" class="btn btn-danger" style="margin-right:13px">Clear</button>
+            <button type="button" class="btn btn-light" style="margin-right:13px">@Html.ActionLink("Back to Menu", "Read", "Account")</button>
+
+        </div>
+    </div>
+
+}

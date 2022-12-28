@@ -1,0 +1,42 @@
+﻿@model Menu_Management.Models.LoginViewModel
+@{
+    ViewBag.Title = "Login";
+}
+<style>
+    .error {
+        color: red
+    }
+</style>
+
+<h2 style="color:darkorange;font-family:Metropolis; font-size:xx-large">Welcome to Indian Delicacy</h2>
+
+<div class="container py-5 h-100">
+    <div class="card-body p-5">
+        @using (Html.BeginForm("Login", "Account", FormMethod.Post))
+        {
+            <div style="color:red">@Html.ValidationSummary()</div>
+            <div class="row">
+                <div class="col-lg-12" style="color:lawngreen">@ViewBag.Message</div>
+            </div><br />
+
+            <div class="form-outline mb-4">
+                <div class="form-label" style="font-weight:bold;font-size:larger; color:white">@Html.LabelFor(a => a.EMAIL_ID, "Email-ID")</div>
+                <div class="fomr-control">@Html.TextBoxFor(a => a.EMAIL_ID, new { @class = "form-control" })</div>
+
+            </div><br />
+            <div class="form-outline mb-4">
+                <div class="fomr-label" style="font-weight: bold; font-size: larger; color: white">@Html.LabelFor(a => a.PASSWORD, "Password")</div>
+
+                <div class="fomr-control">@Html.TextBoxFor(a => a.PASSWORD, new { @class = "form-control", type = "Password" })</div>
+
+            </div><br />
+            <input type="submit" value="Login" class="btn btn-primary" /><br /><br />
+            <div class="btn btn-dark" style="font-weight:bold; font-size:large;">
+                <a href="@Url.Action("Register", "Account")" style="color:antiquewhite">New user? Register here</a>
+            </div>
+        }
+    </div>
+</div>
+
+
+

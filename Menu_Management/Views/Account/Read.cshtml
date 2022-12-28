@@ -1,0 +1,84 @@
+﻿@model PagedList.IPagedList<Menu_Management.Models.menu>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" />"
+@{
+    ViewBag.Title = "Menu";
+}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" title="more options">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            @Html.ActionLink("Menu Management", "Read", "Account", new { area = "" }, new { @class = "navbar-brand" })
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <!--<li>@Html.ActionLink("Add New Item", "Create", "Account")</li>-->
+                <li style="text-align:right">@Html.ActionLink("Logout", "Logout", "Account")</li>
+                <!--<li>@Html.ActionLink("Contact", "Contact", "Account")</li>-->
+            </ul>
+        </div>
+    </div>
+</div>
+
+<p>
+    <button style="background-color:white;margin-right:15px;width:200px;font-weight:bold" type="button" class="btn">@Html.ActionLink("Add New Item", "Create")</button>
+    <button style="background-color: white; font-weight: bold; width:71px" type="button" class="btn">@Html.ActionLink("Home", "Index")</button>
+
+    @using (Html.BeginForm("Read", "Account", FormMethod.Get))
+    {
+        <div style="display:block">
+            @Html.TextBox("searchString", ViewBag.FilterValue as String, new { @style = "height:33px; width:200px; margin-right:15px" })
+            <button type="submit" value="Find" class="btn btn-primary" style="height:33px; margin-right:12px">
+                Search
+            </button>
+            <button style="background-color:white;margin-right:15px;width:75px; height:33px;font-weight:bold" type="button" class="btn"> @Html.ActionLink("Clear", "Read")</button>
+        </div>
+    }
+</p>
+<table class="table">
+    <tr style="color:dodgerblue; font-weight: bold; font-size:large">
+        <th>
+            @Html.ActionLink("DISH NAME", "Read", new { sortOrder = ViewBag.SortingName, currentFilter = ViewBag.FilterValue })
+        </th>
+        <th>
+            Category
+        </th>
+        <th>
+            Price
+        </th>
+        <th>Action</th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr style="color: white; font-size:large">
+            <td style="color:white">
+                @item.DISH_NAME
+            </td>
+            <td style="color: white">
+                @item.category.CATEGORY_NAME
+            </td>
+            <td style="color: white">
+                @item.PRICE
+            </td>
+            <td>
+                <a href="@Url.Action("Edit", "Account", new { id = item.DISH_ID })" style="color:darkorange">Edit</a> |
+                <a href="@Url.Action("Delete", "Account", new { Id = item.DISH_ID })" onclick="return confirm('Are you sure want to Delete?')" style="color:red"> Delete</a>
+
+                @*@Html.ActionLink("Delete", "Delete", new { id = item.DishID }), onclick = "return confirm('Are you sure want to Delete?')" })*@
+            </td>
+        </tr>
+    }
+
+</table>
+<br />
+<div style="color:white; font-weight:bold; font-size:15px">
+    Page @(Model.PageCount<Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+    @Html.PagedListPager(Model, Page_No => Url.Action("Read",
+        new { Page_No, sortOrder = ViewBag.CurrentSortOrder, currentFilter = ViewBag.FilterValue }))
+</div>
